@@ -1,0 +1,112 @@
+---
+title: "Not Project 1"
+author: "Caleb King"
+data: "1-26-24"
+output:
+  pdf_document: default
+---
+
+
+Summary of cleaned data
+
+
+```{r}
+library(TestingPackage)
+library (ggplot2)
+summary(fishData)
+```
+
+
+look at cowplot
+
+lifespan against each numerical variable (scatterplot)
+```{r}
+library(gridExtra)
+plot1 <- ggplot(data = fishData, aes(x = life_span, y = avg_length)) +
+  geom_point(color = "blue") +
+  labs(x = "Lifespan", y = "Average Length") +
+  ggtitle("Length vs Lifespan") +
+  theme_minimal()
+
+plot2 <- ggplot(data = fishData, aes(x = life_span, y = avg_weight)) +
+  geom_point(color = "green") +
+  labs(x = "Lifespan", y = "Average Weight") +
+  ggtitle("Weight vs Lifespan") +
+  theme_minimal()
+
+plot3 <- ggplot(data = fishData, aes(x = life_span, y = ph_of_water)) +
+  geom_point(color = "red") +
+  labs(x = "Lifespan", y = "pH of Water") +
+  ggtitle("PH vs Lifespan") +
+  theme_minimal()
+
+# Combine plots into one output
+combined_plots <- grid.arrange(plot1, plot2, plot3, ncol = 3)
+
+# Output the combined plot
+print(combined_plots)
+```
+
+```{r}
+ggplot(fishData, aes(x=avg_length)) +
+  geom_histogram()
+
+```
+
+
+```{r}
+#ggplot(cleanData, aes(x = habitat, fill = color)) +
+#  geom_bar() +
+#  labs(title = "Distribution of Fish Habitat",
+#       x = "Habitat",
+#       y = "Number of Fish")
+```
+
+
+Lifespan against categorical variables (boxplot)
+
+tilt or shrink.
+
+```{r}
+plot4 <- ggplot(fishData, aes(x = habitat, y = life_span)) +
+  geom_boxplot() +
+  labs(title = "Lifespan vs Habitat")
+
+plot5 <- ggplot(fishData, aes(x = color, y = life_span)) +
+  geom_boxplot() +
+  labs(title = "Lifespan vs Color")
+
+plot6 <- ggplot(fishData, aes(x = Gender, y = life_span)) +
+  geom_boxplot() +
+  labs(title = "Lifespan vs Sex")
+
+combined_plots <- grid.arrange(plot4, plot5, plot6, ncol = 3)
+
+print(combined_plots)
+```
+
+
+Lifespan of each habitat
+
+
+```{r}
+#boxplot(life_span ~ habitat, data = cleanData, main = "Lifespan for Each Habitat")
+```
+
+
+
+
+
+PH of water for each habitat
+
+
+```{r}
+#ggplot(cleanData, aes(x = ph_of_water, y = ..density..)) +
+#  geom_histogram(fill = "cornsilk", color = "grey60") +
+#  facet_grid(habitat ~ .) +
+#  geom_density() + 
+#  labs(title = "Histogram of PH of Water for Each Habitat",
+#       x = "PH of Water",
+#       y = "Density of Fish")
+```
+
